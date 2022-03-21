@@ -1,0 +1,23 @@
+.root {
+    background-color: #ccc;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    font-size: 1.8rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: brown;
+}
+
+.logo2 {
+    color: green;
+    font-size: 2.1rem;
+}
+
+.connect_btn {
+    padding: .4rem 1rem;
+    background-color: blue;
+    color: #fff;
+}
