@@ -1,0 +1,40 @@
+.root {
+    width: 100%;
+    margin: 4rem auto;
+    box-shadow: .5rem .5rem 10rem rgb(172, 169, 169);
+    border-radius: 1rem;
+}
+
+.table {
+    width: 100%;
+}
+
+.table_header {
+    background-color: brown;
+    color: white;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.table__head_row {
+    
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    
+}
+
+.table_row {
+    background-color: rgb(209, 206, 206);
+}
+
+.table_row:nth-child(even) {
+    background-color: rgb(240, 239, 239);  
+}
+
+.table_head_data {
+    padding: 1rem;
+}
+
+.table_data {
+    padding: 1rem;
+}

@@ -1,15 +1,10 @@
-/* *,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-} */
+  outline: 0;
+}
 
-html,
 body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  font-family: sans-serif;
 }
