@@ -1,0 +1,29 @@
+.root {
+    display: flex;
+    width: 30rem;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 1.5rem 2rem;
+    background-color: rgb(8, 153, 107);
+    color: #fff;
+    border-radius: .8rem;
+}
+
+.token_bal, .matic_bal {
+    padding: .5rem;
+} 
+
+.token_bal {
+    background-color: rgb(199, 236, 224);
+    color: rgb(8, 153, 107);
+    padding: .5rem .8rem;
+    border-radius: .4rem;
+}
+
+.matic_bal {
+    background-color: rgb(199, 236, 224);
+    color: rgb(8, 153, 107);
+    padding: .5rem .8rem;
+    border-radius: .4rem;
+}
