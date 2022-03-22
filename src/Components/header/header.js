@@ -16,7 +16,7 @@ export function Header({userInfo, connected, connectWallet}) {
             address={userInfo.address}
           />
         ) : (
-          <button className={Styles.connect_btn}>Connect Wallet</button>
+          <button onClick={connectWallet} className={Styles.connect_btn}>Connect Wallet</button>
         )}
       </div>
     </div>
