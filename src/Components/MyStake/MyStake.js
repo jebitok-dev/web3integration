@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card/Card";
 import Styles from "./MyStake.module.css";
+import clsx from "clsx";
 
 export default function MyStake({
   stakeInput,
@@ -10,6 +11,7 @@ export default function MyStake({
   onClickWithdraw,
   rewardAmount,
   stakeAmount,
+  connected,
 }) {
   return (
     <div className={Styles.root}>
@@ -30,7 +32,7 @@ export default function MyStake({
             onChange={onChangeInput}
             id='stake'
           />
-          <button type='submit' className={Styles.stake_btn}>
+          <button type='submit' className={clsx({[Styles.stake_btn]: true, [Styles.btn_disabled]: !connected})} disabled={!connected}>
             Stake
           </button>
         </form>
@@ -43,7 +45,7 @@ export default function MyStake({
             onChange={onChangeInput}
             id='unstake'
           />
-          <button type='submit' className={Styles.unstake_btn}>
+          <button type='submit' className={clsx({[Styles.unstake_btn]: true, [Styles.btn_disabled]: !connected})} disabled={!connected}>
             Unstake
           </button>
         </form>
