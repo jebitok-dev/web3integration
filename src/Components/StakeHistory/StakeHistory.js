@@ -2,6 +2,7 @@ import React from "react";
 import {addressShortner, formatDate} from "../../Utils/helpers";
 import Styles from "./StakeHistory.module.css";
 import clsx from "clsx";
+import {utils} from "ethers";
 
 export default function StakeHistory({stakeData}) {
   return (
@@ -27,7 +28,9 @@ export default function StakeHistory({stakeData}) {
                   [Styles.stake_style]: item.type === "stake",
                 })}>
                 <td className={Styles.table_data}>{index + 1}</td>
-                <td className={Styles.table_data}>{item.amount}</td>
+                <td className={Styles.table_data}>
+                  {Number(utils.formatUnits(item.amount, 18)).toFixed(4)}
+                </td>
                 <td className={Styles.table_data}>
                   {addressShortner(item.account, false)}
                 </td>

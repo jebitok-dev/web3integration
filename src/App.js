@@ -28,7 +28,7 @@ export default function App() {
   const [stakeHistory, setStakeHistory] = useState([]);
 
   const connectWallet = async () => {
-    if (!!windows.ethereum || !!windows.web3) {
+    if (!!window.ethereum || !!window.web3) {
       await window.ethereum.request({
         method: "eth_requestAccounts",
       });
@@ -90,6 +90,8 @@ export default function App() {
     } else {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const accounts = await provider.listAccounts();
+      if(!accounts.length) return
+      const accountDetails = await getAccountDetails(accounts[0])
       setUserInfo({
         matic_balance: accountDetails.userMaticBal,
         token_balance: accountDetails.userBRTBalance,
@@ -100,7 +102,7 @@ export default function App() {
   };
 
   // an handler function to eagerly connect user and fetch their data
-  const eagerConnect = () => {
+  const eagerConnect = async () => {
     const networkId = await window.ethereum.request({method: "eth_chainId"});
     if (Number(networkId) !== 80001) return;
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -170,7 +172,7 @@ export default function App() {
     }
   };
 
-  const onClickStake = (e) => {
+  const onClickStake = async(e) => {
     e.preventDefault();
     // console.log("staking....", stakeInput);
     if (stakeInput < 0) return alert("you cannot stake less than 0 BRT");
