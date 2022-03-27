@@ -6,6 +6,7 @@ import MyStake from "./Components/MyStake/MyStake";
 import StakeHistory from "./Components/StakeHistory/StakeHistory";
 import "./App.css";
 import BRTTokenAbi from "./Utils/Web3/abi.json";
+import CheckStake from "./Components/CheckStake/CheckStake";
 const BRTTokenAddress = "0x169E82570feAc981780F3C48Ee9f05CED1328e1b";
 
 export default function App() {
@@ -22,7 +23,7 @@ export default function App() {
   const [rewardAmount, setRewardAmount] = useState(null);
   // the value of token the user wants to stake
   const [stakeInput, setStakeInput] = useState("");
-  // the value of toen the user wants to withdraw
+  // the value of token the user wants to withdraw
   const [withdrawInput, setWithdrawInput] = useState("");
   // all stake history data displayed on the history table
   const [stakeHistory, setStakeHistory] = useState([]);
@@ -195,7 +196,21 @@ export default function App() {
 
   const onClickWithdraw = (e) => {
     e.preventDefault();
-    console.log("unstaking....", withdrawInput);
+    if(withdrawInput < 0) return alert("you cannot withdraw less than 0 rewardToken");
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const BRTContractInstance = new Contract(
+      BRTTokenAddress,
+      BRTTokenAbi,
+      signer
+    );
+    const rewardToken = utils.parseEther(withdrawReward);
+    const withdrawReward = await BRTContractInstance.withdraw(rewardToken);
+    const withdrawRewardHash = await provider.getTransaction(withdrawReward.hash);
+    const response = await withdrawReward.wait();
+    const address = response.events[1].args[1].toString();
+    const withdrawAmount = response.events[1].args[1].toString();
+    const time = response.events[1].args[2].toString();
   };
 
   return (
@@ -217,6 +232,7 @@ export default function App() {
           connected={connected}
         />
         <StakeHistory stakeData={stakeHistory} />
+        <CheckStake />
       </main>
       <Footer />
     </div>

@@ -2,10 +2,6 @@
 
 > The Frontend Implementation
 
-![screenshot](./public/img2.png)
-
-![screenshot](./public/img1.png)
-
 <!-- Additional description about the project and its features. -->
 
 - This project is the implementation of the web3integration of staking contract to a frontend that enables users to stake and unstake plus check their staking history.
@@ -15,7 +11,13 @@
 - Ethersjs
 - CSS
 
-<!-- ## Live Demo -->
+## Live Link
+- [Web3Frontend Staking Platform](https://mystake-web3.netlify.app/)
+
+![screenshot](./public/img2.png)
+
+![screenshot](./public/img1.png)
+
 
 ## Getting Started
 
