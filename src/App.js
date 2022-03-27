@@ -194,7 +194,7 @@ export default function App() {
     const time = response.events[1].args[2].toString();
   };
 
-  const onClickWithdraw = (e) => {
+  const onClickWithdraw = async(e) => {
     e.preventDefault();
     if(withdrawInput < 0) return alert("you cannot withdraw less than 0 rewardToken");
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -204,7 +204,7 @@ export default function App() {
       BRTTokenAbi,
       signer
     );
-    const rewardToken = utils.parseEther(withdrawReward);
+    const rewardToken = utils.parseEther(withdrawInput);
     const withdrawReward = await BRTContractInstance.withdraw(rewardToken);
     const withdrawRewardHash = await provider.getTransaction(withdrawReward.hash);
     const response = await withdrawReward.wait();
