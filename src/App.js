@@ -246,7 +246,7 @@ export default function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const BRTContractInstance = new Contract(BRTTokenAbi, BRTTokenAddress);
-    const showTotalReward = parseEther(totalReward);
+    const showTotalReward = utils.parseEther(totalReward);
     const calcTotalReward = await BRTContractInstance.calcReward(
       showTotalReward
     );

@@ -22,7 +22,7 @@ export default function MyStake({
       <div className={Styles.stake_body}>
         <div className={Styles.card_container}>
           <Card cardKey='Total Staked' cardValue={setStakeAmount} />
-          <Card cardKey='Total Reward' cardValue={totalStaked} />
+          <Card cardKey='Total Reward' cardValue={totalReward} />
         </div>
 
         <form onSubmit={onClickStake} className={Styles.form}>
