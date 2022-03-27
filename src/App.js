@@ -33,7 +33,7 @@ export default function App() {
   // total Reward user has been earned
   const [totalReward, setTotalReward] = useState("");
   // total amount user has staked
-  const [totalStaked, setTotalStaked] = useState("");
+  // const [totalStaked, setTotalStaked] = useState("");
 
   const connectWallet = async () => {
     if (!!window.ethereum || !!window.web3) {
@@ -255,18 +255,18 @@ export default function App() {
     const totalRewardAvailable = response.events[1].args[1].toString();
   };
 
-  const TotalStaked = async (e) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const BRTContractInstance = new Contract(BRTTokenAbi, BRTTokenAddress);
-    const showTotalStaked = parseEther(totalStaked);
-    const calcTotalStaked = await BRTContractInstance.calcStaked(
-      showTotalStaked
-    );
-    const calcTotalStakedHash = await provider.getBalance(calcTotalStaked);
-    const response = await calcTotalStaked.wait();
-    const totalStakedAvailable = response.events[1].args[1].toString();
-  };
+  // const TotalStaked = async (e) => {
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //   const signer = provider.getSigner();
+  //   const BRTContractInstance = new Contract(BRTTokenAbi, BRTTokenAddress);
+  //   const showTotalStaked = parseEther(totalStaked);
+  //   const calcTotalStaked = await BRTContractInstance.calcStaked(
+  //     showTotalStaked
+  //   );
+  //   const calcTotalStakedHash = await provider.getBalance(calcTotalStaked);
+  //   const response = await calcTotalStaked.wait();
+  //   const totalStakedAvailable = response.events[1].args[1].toString();
+  // };
 
   return (
     <div className='App'>
@@ -282,11 +282,11 @@ export default function App() {
           onChangeInput={onChangeInput}
           onClickStake={onClickStake}
           onClickWithdraw={onClickWithdraw}
-          stakeAmount={stakeAmount}
+          stakeAmount={setStakeAmount}
           rewardAmount={rewardAmount}
           connected={connected}
           totalReward={totalReward}
-          totalStaked={totalStaked}
+          // totalStaked={totalStaked}
         />
         <StakeHistory stakeData={stakeHistory} />
         <CheckStake

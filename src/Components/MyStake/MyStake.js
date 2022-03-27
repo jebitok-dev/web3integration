@@ -10,9 +10,9 @@ export default function MyStake({
   onClickStake,
   onClickWithdraw,
   rewardAmount,
-  stakeAmount,
+  setStakeAmount,
   connected,
-  totalStaked,
+  // totalStaked,
   totalReward
 }) {
   return (
@@ -21,7 +21,7 @@ export default function MyStake({
 
       <div className={Styles.stake_body}>
         <div className={Styles.card_container}>
-          <Card cardKey='Total Staked' cardValue={totalStaked} />
+          <Card cardKey='Total Staked' cardValue={setStakeAmount} />
           <Card cardKey='Total Reward' cardValue={totalStaked} />
         </div>
 
