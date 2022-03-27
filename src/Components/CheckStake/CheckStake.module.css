@@ -27,6 +27,10 @@
   border: none;
 }
 
+.card_container {
+  display: flex;
+}
+
 .check_stake {
   padding: 0.8rem 1.2rem;
   border: 0;

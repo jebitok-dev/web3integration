@@ -1,14 +1,19 @@
 import React from "react";
-// import Card from "./Card/Card";
+import Card from "./Card/Card";
 import Styles from "./CheckStake.module.css";
 import clsx from "clsx";
 
-export default function CheckStake({CheckStake, onClickCheckStake}) {
+export default function CheckStake({CheckStake, onClickCheckStake, stakeAmount}) {
   return (
     <div className={Styles.root}>
       <h2 className={Styles.heading}>Check Stake</h2>
 
       <div className={Styles.stake_body}>
+
+      <div className={Styles.card_container}>
+          <Card cardKey='Stake Amount' cardValue={stakeAmount} />
+        </div>
+
         <form onSubmit={onClickCheckStake} className={Styles.form}>
           <input
             type='number'

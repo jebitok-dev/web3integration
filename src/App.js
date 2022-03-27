@@ -221,18 +221,18 @@ export default function App() {
   const onClickCheckStake = async (e) => {
     e.preventDefault();
     if (checkStake) return alert("enter valid address");
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const signer = provider.getSigner();
     const BRTContractInstance = new Contract(
       BRTTokenAddress,
       BRTTokenAbi,
-      signer
+      // signer
     );
     const checkStakeAddress = utils.getAddress(checkStake);
     const checkAddressStake = await BRTContractInstance.getStakeByAddress(
       checkStakeAddress
     );
-    const checkStakeAddressHash = await provider.getBalance(checkAddressStake);
+    // const checkStakeAddressHash = await provider.getBalance(checkAddressStake);
     const response = await checkAddressStake.wait();
     const stakeByAddress = response.events[1].args[1].toString();
   };
