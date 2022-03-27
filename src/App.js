@@ -7,6 +7,7 @@ import StakeHistory from "./Components/StakeHistory/StakeHistory";
 import "./App.css";
 import BRTTokenAbi from "./Utils/Web3/abi.json";
 import CheckStake from "./Components/CheckStake/CheckStake";
+import {useSelector} from "react-redux";
 const BRTTokenAddress = "0x169E82570feAc981780F3C48Ee9f05CED1328e1b";
 
 export default function App() {
@@ -28,8 +29,12 @@ export default function App() {
   // all stake history data displayed on the history table
   const [stakeHistory, setStakeHistory] = useState([]);
   // address user is check stake with
-  const [checkStake, setCheckStake] = useState();
-  
+  const [checkStake, setCheckStake] = useState("");
+  // total Reward user has been earned
+  const [totalReward, setTotalReward] = useState("");
+  // total amount user has staked
+  const [totalStaked, setTotalStaked] = useState("");
+
   const connectWallet = async () => {
     if (!!window.ethereum || !!window.web3) {
       await window.ethereum.request({
@@ -220,12 +225,12 @@ export default function App() {
 
   const onClickCheckStake = async (e) => {
     e.preventDefault();
-    if (checkStake) return alert("enter valid address");
+    if (!checkStake) return alert("enter valid address");
     // const provider = new ethers.providers.Web3Provider(window.ethereum);
     // const signer = provider.getSigner();
     const BRTContractInstance = new Contract(
       BRTTokenAddress,
-      BRTTokenAbi,
+      BRTTokenAbi
       // signer
     );
     const checkStakeAddress = utils.getAddress(checkStake);
@@ -235,6 +240,32 @@ export default function App() {
     // const checkStakeAddressHash = await provider.getBalance(checkAddressStake);
     const response = await checkAddressStake.wait();
     const stakeByAddress = response.events[1].args[1].toString();
+  };
+
+  const TotalReward = async (e) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const BRTContractInstance = new Contract(BRTTokenAbi, BRTTokenAddress);
+    const showTotalReward = parseEther(totalReward);
+    const calcTotalReward = await BRTContractInstance.calcReward(
+      showTotalReward
+    );
+    const calcTotalRewardHash = await provider.getBalance(calcTotalReward);
+    const response = await calcTotalReward.wait();
+    const totalRewardAvailable = response.events[1].args[1].toString();
+  };
+
+  const TotalStaked = async (e) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const BRTContractInstance = new Contract(BRTTokenAbi, BRTTokenAddress);
+    const showTotalStaked = parseEther(totalStaked);
+    const calcTotalStaked = await BRTContractInstance.calcStaked(
+      showTotalStaked
+    );
+    const calcTotalStakedHash = await provider.getBalance(calcTotalStaked);
+    const response = await calcTotalStaked.wait();
+    const totalStakedAvailable = response.events[1].args[1].toString();
   };
 
   return (
@@ -254,6 +285,8 @@ export default function App() {
           stakeAmount={stakeAmount}
           rewardAmount={rewardAmount}
           connected={connected}
+          totalReward={totalReward}
+          totalStaked={totalStaked}
         />
         <StakeHistory stakeData={stakeHistory} />
         <CheckStake

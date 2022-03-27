@@ -12,6 +12,8 @@ export default function MyStake({
   rewardAmount,
   stakeAmount,
   connected,
+  totalStaked,
+  totalReward
 }) {
   return (
     <div className={Styles.root}>
@@ -19,8 +21,8 @@ export default function MyStake({
 
       <div className={Styles.stake_body}>
         <div className={Styles.card_container}>
-          <Card cardKey='Total Staked' cardValue={stakeAmount} />
-          <Card cardKey='Total Reward' cardValue={rewardAmount} />
+          <Card cardKey='Total Staked' cardValue={totalStaked} />
+          <Card cardKey='Total Reward' cardValue={totalStaked} />
         </div>
 
         <form onSubmit={onClickStake} className={Styles.form}>
