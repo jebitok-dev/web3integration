@@ -36,6 +36,7 @@
   width: 6rem;
   color: #fff;
   cursor: pointer;
+  text-align: center;
 }
 
 .btn_disabled {

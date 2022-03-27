@@ -3,24 +3,13 @@ import React from "react";
 import Styles from "./CheckStake.module.css";
 import clsx from "clsx";
 
-export default function CheckStake(
-//     {
-//     stakeInput,
-//   onChangeInput,
-//   withdrawInput,
-//   onClickStake,
-//   onClickWithdraw,
-//   rewardAmount,
-//   stakeAmount,
-//   connected,
-// }
-) {
+export default function CheckStake({CheckStake, onClickCheckStake}) {
   return (
     <div className={Styles.root}>
       <h2 className={Styles.heading}>Check Stake</h2>
 
       <div className={Styles.stake_body}>
-        <form className={Styles.form}>
+        <form onSubmit={onClickCheckStake} className={Styles.form}>
           <input
             type='number'
             className={Styles.input}
@@ -29,12 +18,16 @@ export default function CheckStake(
             // onChange={onChangeInput}
             id='stake'
           />
-          <button type='submit' className={clsx({[Styles.check_stake]: true, [Styles.btn_disabled] : false})}>
-            Stake
+          <button
+            type='submit'
+            className={clsx({
+              [Styles.check_stake]: true,
+              [Styles.btn_disabled]: false,
+            })}>
+            CheckStake
           </button>
         </form>
       </div>
     </div>
   );
 }
-

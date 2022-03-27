@@ -27,7 +27,9 @@ export default function App() {
   const [withdrawInput, setWithdrawInput] = useState("");
   // all stake history data displayed on the history table
   const [stakeHistory, setStakeHistory] = useState([]);
-
+  // address user is check stake with
+  const [checkStake, setCheckStake] = useState();
+  
   const connectWallet = async () => {
     if (!!window.ethereum || !!window.web3) {
       await window.ethereum.request({
@@ -91,8 +93,8 @@ export default function App() {
     } else {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const accounts = await provider.listAccounts();
-      if(!accounts.length) return
-      const accountDetails = await getAccountDetails(accounts[0])
+      if (!accounts.length) return;
+      const accountDetails = await getAccountDetails(accounts[0]);
       setUserInfo({
         matic_balance: accountDetails.userMaticBal,
         token_balance: accountDetails.userBRTBalance,
@@ -173,7 +175,7 @@ export default function App() {
     }
   };
 
-  const onClickStake = async(e) => {
+  const onClickStake = async (e) => {
     e.preventDefault();
     // console.log("staking....", stakeInput);
     if (stakeInput < 0) return alert("you cannot stake less than 0 BRT");
@@ -194,9 +196,10 @@ export default function App() {
     const time = response.events[1].args[2].toString();
   };
 
-  const onClickWithdraw = async(e) => {
+  const onClickWithdraw = async (e) => {
     e.preventDefault();
-    if(withdrawInput < 0) return alert("you cannot withdraw less than 0 rewardToken");
+    if (withdrawInput < 0)
+      return alert("you cannot withdraw less than 0 rewardToken");
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const BRTContractInstance = new Contract(
@@ -206,11 +209,32 @@ export default function App() {
     );
     const rewardToken = utils.parseEther(withdrawInput);
     const withdrawReward = await BRTContractInstance.withdraw(rewardToken);
-    const withdrawRewardHash = await provider.getTransaction(withdrawReward.hash);
+    const withdrawRewardHash = await provider.getTransaction(
+      withdrawReward.hash
+    );
     const response = await withdrawReward.wait();
     const address = response.events[1].args[1].toString();
     const withdrawAmount = response.events[1].args[1].toString();
     const time = response.events[1].args[2].toString();
+  };
+
+  const onClickCheckStake = async (e) => {
+    e.preventDefault();
+    if (checkStake) return alert("enter valid address");
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const BRTContractInstance = new Contract(
+      BRTTokenAddress,
+      BRTTokenAbi,
+      signer
+    );
+    const checkStakeAddress = utils.getAddress(checkStake);
+    const checkAddressStake = await BRTContractInstance.getStakeByAddress(
+      checkStakeAddress
+    );
+    const checkStakeAddressHash = await provider.getBalance(checkAddressStake);
+    const response = await checkAddressStake.wait();
+    const stakeByAddress = response.events[1].args[1].toString();
   };
 
   return (
@@ -232,7 +256,11 @@ export default function App() {
           connected={connected}
         />
         <StakeHistory stakeData={stakeHistory} />
-        <CheckStake />
+        <CheckStake
+          checkStake={checkStake}
+          onClickCheckStake={onClickCheckStake}
+          stakeAmount={stakeAmount}
+        />
       </main>
       <Footer />
     </div>
